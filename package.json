@@ -15,7 +15,6 @@
     "conventional-changelog": "^0.5.3",
     "conventional-recommended-bump": "0.0.3",
     "del": "~0.1.1",
-    "event-stream": "~3.1.0",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-bump": "^1.0.0",
@@ -46,6 +45,7 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "karma-coverage": "~0.2",
     "run-sequence": "^1.1.5",
+    "streamqueue": "^1.1.1",
     "title-case": "^1.1.2"
   },
   "scripts": {

@@ -1,12 +1,13 @@
 var fs = require('fs');
 var del = require('del');
 var gulp = require('gulp');
-var es = require('event-stream');
+var streamqueue = require('streamqueue');
 var karma = require('karma').server;
 var $ = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 var conventionalRecommendedBump = require('conventional-recommended-bump');
 var titleCase = require('title-case');
+
 
 var config = {
   pkg : JSON.parse(fs.readFileSync('./package.json')),
@@ -56,7 +57,10 @@ gulp.task('scripts', ['clean'], function() {
       .pipe($.jshint.reporter('fail'));
   };
 
-  return es.merge(buildLib(), buildTemplates())
+  return streamqueue({objectMode: true},
+      buildLib(),
+      buildTemplates()
+    )
     .pipe($.plumber({
       errorHandler: handleError
     }))
