@@ -49,9 +49,10 @@ gulp.task('scripts', ['clean'], function() {
       .pipe($.plumber({
         errorHandler: handleError
       }))
-      .pipe($.concat('select_without_templates.js'))
       .pipe($.header('(function () { \n"use strict";\n'))
       .pipe($.footer('\n}());'))
+      .pipe($.concat('select_without_templates.js'))
+      .pipe(gulp.dest('dist'))
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish'))
       .pipe($.jshint.reporter('fail'));
