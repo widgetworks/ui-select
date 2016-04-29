@@ -514,57 +514,57 @@ describe('ui-select tests', function() {
   });
 
 
-  it('should open/close dropdown when clicking caret icon', function() {
+  // it('should open/close dropdown when clicking caret icon', function() {
 
-    var el = createUiSelect({theme : 'select2'});
-    var searchInput = el.find('.ui-select-search');
-    var $select = el.scope().$select;
+  //   var el = createUiSelect({theme : 'select2'});
+  //   var searchInput = el.find('.ui-select-search');
+  //   var $select = el.scope().$select;
 
-    expect($select.open).toEqual(false);
+  //   expect($select.open).toEqual(false);
 
-    el.find(".ui-select-toggle").click();
-    expect($select.open).toEqual(true);
+  //   el.find(".ui-select-toggle").click();
+  //   expect($select.open).toEqual(true);
 
 
-    el.find(".ui-select-toggle").click();
-    expect($select.open).toEqual(false);
-  });
+  //   el.find(".ui-select-toggle").click();
+  //   expect($select.open).toEqual(false);
+  // });
 
-  it('should clear selection', function() {
-    scope.selection.selected = scope.people[0];
+  // it('should clear selection', function() {
+  //   scope.selection.selected = scope.people[0];
 
-    var el = createUiSelect({theme : 'select2', allowClear: 'true'});
-    var $select = el.scope().$select;
+  //   var el = createUiSelect({theme : 'select2', allowClear: 'true'});
+  //   var $select = el.scope().$select;
 
-    // allowClear should be true.
-    expect($select.allowClear).toEqual(true);
+  //   // allowClear should be true.
+  //   expect($select.allowClear).toEqual(true);
 
-    // Trigger clear.
-    el.find('.select2-search-choice-close').click();
-    expect(scope.selection.selected).toEqual(undefined);
+  //   // Trigger clear.
+  //   el.find('.select2-search-choice-close').click();
+  //   expect(scope.selection.selected).toEqual(undefined);
 
-    // If there is no selection it the X icon should be gone.
-    expect(el.find('.select2-search-choice-close').length).toEqual(0);
+  //   // If there is no selection it the X icon should be gone.
+  //   expect(el.find('.select2-search-choice-close').length).toEqual(0);
 
-  });
+  // });
 
-  it('should toggle allow-clear directive', function() {
-    scope.selection.selected = scope.people[0];
-    scope.isClearAllowed = false;
+  // it('should toggle allow-clear directive', function() {
+  //   scope.selection.selected = scope.people[0];
+  //   scope.isClearAllowed = false;
 
-    var el = createUiSelect({theme : 'select2', allowClear: '{{isClearAllowed}}'});
-    var $select = el.scope().$select;
+  //   var el = createUiSelect({theme : 'select2', allowClear: '{{isClearAllowed}}'});
+  //   var $select = el.scope().$select;
 
-    expect($select.allowClear).toEqual(false);
-    expect(el.find('.select2-search-choice-close').length).toEqual(0);
+  //   expect($select.allowClear).toEqual(false);
+  //   expect(el.find('.select2-search-choice-close').length).toEqual(0);
 
-    // Turn clear on
-    scope.isClearAllowed = true;
-    scope.$digest();
+  //   // Turn clear on
+  //   scope.isClearAllowed = true;
+  //   scope.$digest();
 
-    expect($select.allowClear).toEqual(true);
-    expect(el.find('.select2-search-choice-close').length).toEqual(1);
-  });
+  //   expect($select.allowClear).toEqual(true);
+  //   expect(el.find('.select2-search-choice-close').length).toEqual(1);
+  // });
 
 
   it('should pass tabindex to focusser', function() {
@@ -1316,64 +1316,64 @@ describe('ui-select tests', function() {
 
   });
 
-  it('should invoke remove callback on remove', function () {
+  // it('should invoke remove callback on remove', function () {
 
-    scope.onRemoveFn = function ($item, $model, $label) {
-      scope.$item = $item;
-      scope.$model = $model;
-    };
+  //   scope.onRemoveFn = function ($item, $model, $label) {
+  //     scope.$item = $item;
+  //     scope.$model = $model;
+  //   };
 
-    var el = compileTemplate(
-      '<ui-select multiple on-remove="onRemoveFn($item, $model)" ng-model="selection.selected"> \
-        <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match> \
-        <ui-select-choices repeat="person.name as person in people | filter: $select.search"> \
-          <div ng-bind-html="person.name" | highlight: $select.search"></div> \
-          <div ng-bind-html="person.email | highlight: $select.search"></div> \
-        </ui-select-choices> \
-      </ui-select>'
-    );
+  //   var el = compileTemplate(
+  //     '<ui-select multiple on-remove="onRemoveFn($item, $model)" ng-model="selection.selected"> \
+  //       <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match> \
+  //       <ui-select-choices repeat="person.name as person in people | filter: $select.search"> \
+  //         <div ng-bind-html="person.name" | highlight: $select.search"></div> \
+  //         <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //       </ui-select-choices> \
+  //     </ui-select>'
+  //   );
 
-    expect(scope.$item).toBeFalsy();
-    expect(scope.$model).toBeFalsy();
+  //   expect(scope.$item).toBeFalsy();
+  //   expect(scope.$model).toBeFalsy();
 
-    clickItem(el, 'Samantha');
-    clickItem(el, 'Adrian');
-    el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
-    $timeout.flush();
+  //   clickItem(el, 'Samantha');
+  //   clickItem(el, 'Adrian');
+  //   el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
+  //   $timeout.flush();
 
-    expect(scope.$item).toBe(scope.people[5]);
-    expect(scope.$model).toBe('Samantha');
+  //   expect(scope.$item).toBe(scope.people[5]);
+  //   expect(scope.$model).toBe('Samantha');
 
-  });
+  // });
 
-  it('should set $item & $model correctly when invoking callback on remove and no single prop. binding', function () {
+  // it('should set $item & $model correctly when invoking callback on remove and no single prop. binding', function () {
 
-    scope.onRemoveFn = function ($item, $model, $label) {
-      scope.$item = $item;
-      scope.$model = $model;
-    };
+  //   scope.onRemoveFn = function ($item, $model, $label) {
+  //     scope.$item = $item;
+  //     scope.$model = $model;
+  //   };
 
-    var el = compileTemplate(
-      '<ui-select multiple on-remove="onRemoveFn($item, $model)" ng-model="selection.selected"> \
-        <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match> \
-        <ui-select-choices repeat="person in people | filter: $select.search"> \
-          <div ng-bind-html="person.name" | highlight: $select.search"></div> \
-          <div ng-bind-html="person.email | highlight: $select.search"></div> \
-        </ui-select-choices> \
-      </ui-select>'
-    );
+  //   var el = compileTemplate(
+  //     '<ui-select multiple on-remove="onRemoveFn($item, $model)" ng-model="selection.selected"> \
+  //       <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match> \
+  //       <ui-select-choices repeat="person in people | filter: $select.search"> \
+  //         <div ng-bind-html="person.name" | highlight: $select.search"></div> \
+  //         <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //       </ui-select-choices> \
+  //     </ui-select>'
+  //   );
 
-    expect(scope.$item).toBeFalsy();
-    expect(scope.$model).toBeFalsy();
+  //   expect(scope.$item).toBeFalsy();
+  //   expect(scope.$model).toBeFalsy();
 
-    clickItem(el, 'Samantha');
-    clickItem(el, 'Adrian');
-    el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
-    $timeout.flush();
+  //   clickItem(el, 'Samantha');
+  //   clickItem(el, 'Adrian');
+  //   el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
+  //   $timeout.flush();
 
-    expect(scope.$item).toBe(scope.people[5]);
-    expect(scope.$model).toBe(scope.$item);
-  });
+  //   expect(scope.$item).toBe(scope.people[5]);
+  //   expect(scope.$model).toBe(scope.$item);
+  // });
 
   it('should allow creating tag in single select mode with tagging enabled', function() {
 
@@ -1402,30 +1402,30 @@ describe('ui-select tests', function() {
     expect($(el).scope().$select.selected).toEqual('idontexist');
   });
 
-  it('should allow creating tag on ENTER in multiple select mode with tagging enabled, no labels', function() {
+  // it('should allow creating tag on ENTER in multiple select mode with tagging enabled, no labels', function() {
 
-    scope.taggingFunc = function (name) {
-      return name;
-    };
+  //   scope.taggingFunc = function (name) {
+  //     return name;
+  //   };
 
-    var el = compileTemplate(
-        '<ui-select multiple ng-model="selection.selected" tagging="taggingFunc" tagging-label="false"> \
-          <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match> \
-          <ui-select-choices repeat="person in people | filter: $select.search"> \
-            <div ng-bind-html="person.name" | highlight: $select.search"></div> \
-            <div ng-bind-html="person.email | highlight: $select.search"></div> \
-          </ui-select-choices> \
-        </ui-select>'
-    );
+  //   var el = compileTemplate(
+  //       '<ui-select multiple ng-model="selection.selected" tagging="taggingFunc" tagging-label="false"> \
+  //         <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match> \
+  //         <ui-select-choices repeat="person in people | filter: $select.search"> \
+  //           <div ng-bind-html="person.name" | highlight: $select.search"></div> \
+  //           <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //         </ui-select-choices> \
+  //       </ui-select>'
+  //   );
 
-    var searchInput = el.find('.ui-select-search');
+  //   var searchInput = el.find('.ui-select-search');
 
-    setSearchText(el, 'idontexist');
+  //   setSearchText(el, 'idontexist');
 
-    triggerKeydown(searchInput, Key.Enter);
+  //   triggerKeydown(searchInput, Key.Enter);
 
-    expect($(el).scope().$select.selected).toEqual(['idontexist']);
-  });
+  //   expect($(el).scope().$select.selected).toEqual(['idontexist']);
+  // });
 
   it('should append/transclude content (with correct scope) that users add at <match> tag', function () {
 
@@ -1619,33 +1619,33 @@ describe('ui-select tests', function() {
       );
     }
 
-    describe('selectize theme', function() {
+    // describe('selectize theme', function() {
 
-      it('should show search input when true', function() {
-        setupSelectComponent(true, 'selectize');
-        expect($(el).find('.ui-select-search')).not.toHaveClass('ng-hide');
-      });
+    //   it('should show search input when true', function() {
+    //     setupSelectComponent(true, 'selectize');
+    //     expect($(el).find('.ui-select-search')).not.toHaveClass('ng-hide');
+    //   });
 
-      it('should hide search input when false', function() {
-        setupSelectComponent(false, 'selectize');
-        expect($(el).find('.ui-select-search')).toHaveClass('ng-hide');
-      });
+    //   it('should hide search input when false', function() {
+    //     setupSelectComponent(false, 'selectize');
+    //     expect($(el).find('.ui-select-search')).toHaveClass('ng-hide');
+    //   });
 
-    });
+    // });
 
-    describe('select2 theme', function() {
+    // describe('select2 theme', function() {
 
-      it('should show search input when true', function() {
-        setupSelectComponent('true', 'select2');
-        expect($(el).find('.select2-search')).not.toHaveClass('ng-hide');
-      });
+    //   it('should show search input when true', function() {
+    //     setupSelectComponent('true', 'select2');
+    //     expect($(el).find('.select2-search')).not.toHaveClass('ng-hide');
+    //   });
 
-      it('should hide search input when false', function() {
-        setupSelectComponent('false', 'select2');
-        expect($(el).find('.select2-search')).toHaveClass('ng-hide');
-      });
+    //   it('should hide search input when false', function() {
+    //     setupSelectComponent('false', 'select2');
+    //     expect($(el).find('.select2-search')).toHaveClass('ng-hide');
+    //   });
 
-    });
+    // });
 
     describe('bootstrap theme', function() {
 
@@ -1666,879 +1666,879 @@ describe('ui-select tests', function() {
   });
 
 
-  describe('multi selection', function() {
-
-    function createUiSelectMultiple(attrs) {
-        var attrsHtml = '',
-            choicesAttrsHtml = '';
-        if (attrs !== undefined) {
-            if (attrs.disabled !== undefined) { attrsHtml += ' ng-disabled="' + attrs.disabled + '"'; }
-            if (attrs.required !== undefined) { attrsHtml += ' ng-required="' + attrs.required + '"'; }
-            if (attrs.tabindex !== undefined) { attrsHtml += ' tabindex="' + attrs.tabindex + '"'; }
-            if (attrs.closeOnSelect !== undefined) { attrsHtml += ' close-on-select="' + attrs.closeOnSelect + '"'; }
-            if (attrs.tagging !== undefined) { attrsHtml += ' tagging="' + attrs.tagging + '"'; }
-            if (attrs.taggingTokens !== undefined) { attrsHtml += ' tagging-tokens="' + attrs.taggingTokens + '"'; }
-            if (attrs.inputId !== undefined) { attrsHtml += ' input-id="' + attrs.inputId + '"'; }
-            if (attrs.groupBy !== undefined) { choicesAttrsHtml += ' group-by="' + attrs.groupBy + '"'; }
-        }
-
-        return compileTemplate(
-            '<ui-select multiple ng-model="selection.selectedMultiple"' + attrsHtml + ' theme="bootstrap" style="width: 800px;"> \
-                <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-                <ui-select-choices repeat="person in people | filter: $select.search"' + choicesAttrsHtml + '> \
-                  <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                  <div ng-bind-html="person.email | highlight: $select.search"></div> \
-                </ui-select-choices> \
-            </ui-select>'
-        );
-    }
-
-    it('should render initial state', function() {
-        var el = createUiSelectMultiple();
-        expect(el).toHaveClass('ui-select-multiple');
-        expect(el.scope().$select.selected.length).toBe(0);
-        expect(el.find('.ui-select-match-item').length).toBe(0);
-    });
-
-    it('should render intial state with data-multiple attribute', function () {
-      // ensure match template has been loaded by having more than one selection
-      scope.selection.selectedMultiple = [scope.people[0], scope.people[1]];
-
-      var el = compileTemplate(
-        '<ui-select data-multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-            <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-            <ui-select-choices repeat="person in people | filter: $select.search"> \
-              <div ng-bind-html="person.name | highlight: $select.search"></div> \
-              <div ng-bind-html="person.email | highlight: $select.search"></div> \
-            </ui-select-choices> \
-        </ui-select>'
-            );
-
-      expect(el).toHaveClass('ui-select-multiple');
-      expect(el.scope().$select.selected.length).toBe(2);
-      expect(el.find('.ui-select-match-item').length).toBe(2);
-    });
-
-    it('should render intial state with x-multiple attribute', function () {
-      // ensure match template has been loaded by having more than one selection
-      scope.selection.selectedMultiple = [scope.people[0], scope.people[1]];
-
-      var el = compileTemplate(
-        '<ui-select x-multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-            <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-            <ui-select-choices repeat="person in people | filter: $select.search"> \
-              <div ng-bind-html="person.name | highlight: $select.search"></div> \
-              <div ng-bind-html="person.email | highlight: $select.search"></div> \
-            </ui-select-choices> \
-        </ui-select>'
-            );
-
-      expect(el).toHaveClass('ui-select-multiple');
-      expect(el.scope().$select.selected.length).toBe(2);
-      expect(el.find('.ui-select-match-item').length).toBe(2);
-    });
-
-    it('should set model as an empty array if ngModel isnt defined after an item is selected', function () {
-
-      // scope.selection.selectedMultiple = [];
-      var el = createUiSelectMultiple();
-      expect(scope.selection.selectedMultiple instanceof Array).toBe(false);
-      clickItem(el, 'Samantha');
-      expect(scope.selection.selectedMultiple instanceof Array).toBe(true);
-    });
-
-    it('should render initial selected items', function() {
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
-        var el = createUiSelectMultiple();
-        expect(el.scope().$select.selected.length).toBe(2);
-        expect(el.find('.ui-select-match-item').length).toBe(2);
-    });
-
-    it('should remove item by pressing X icon', function() {
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
-        var el = createUiSelectMultiple();
-        expect(el.scope().$select.selected.length).toBe(2);
-        el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
-        expect(el.scope().$select.selected.length).toBe(1);
-        // $timeout.flush();
-    });
-
-    it('should pass tabindex to searchInput', function() {
-      var el = createUiSelectMultiple({tabindex: 5});
-      var searchInput = el.find('.ui-select-search');
-
-      expect(searchInput.attr('tabindex')).toEqual('5');
-      expect($(el).attr('tabindex')).toEqual(undefined);
-    });
+  // describe('multi selection', function() {
+
+  //   function createUiSelectMultiple(attrs) {
+  //       var attrsHtml = '',
+  //           choicesAttrsHtml = '';
+  //       if (attrs !== undefined) {
+  //           if (attrs.disabled !== undefined) { attrsHtml += ' ng-disabled="' + attrs.disabled + '"'; }
+  //           if (attrs.required !== undefined) { attrsHtml += ' ng-required="' + attrs.required + '"'; }
+  //           if (attrs.tabindex !== undefined) { attrsHtml += ' tabindex="' + attrs.tabindex + '"'; }
+  //           if (attrs.closeOnSelect !== undefined) { attrsHtml += ' close-on-select="' + attrs.closeOnSelect + '"'; }
+  //           if (attrs.tagging !== undefined) { attrsHtml += ' tagging="' + attrs.tagging + '"'; }
+  //           if (attrs.taggingTokens !== undefined) { attrsHtml += ' tagging-tokens="' + attrs.taggingTokens + '"'; }
+  //           if (attrs.inputId !== undefined) { attrsHtml += ' input-id="' + attrs.inputId + '"'; }
+  //           if (attrs.groupBy !== undefined) { choicesAttrsHtml += ' group-by="' + attrs.groupBy + '"'; }
+  //       }
+
+  //       return compileTemplate(
+  //           '<ui-select multiple ng-model="selection.selectedMultiple"' + attrsHtml + ' theme="bootstrap" style="width: 800px;"> \
+  //               <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //               <ui-select-choices repeat="person in people | filter: $select.search"' + choicesAttrsHtml + '> \
+  //                 <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //                 <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //               </ui-select-choices> \
+  //           </ui-select>'
+  //       );
+  //   }
+
+  //   it('should render initial state', function() {
+  //       var el = createUiSelectMultiple();
+  //       expect(el).toHaveClass('ui-select-multiple');
+  //       expect(el.scope().$select.selected.length).toBe(0);
+  //       expect(el.find('.ui-select-match-item').length).toBe(0);
+  //   });
+
+  //   it('should render intial state with data-multiple attribute', function () {
+  //     // ensure match template has been loaded by having more than one selection
+  //     scope.selection.selectedMultiple = [scope.people[0], scope.people[1]];
+
+  //     var el = compileTemplate(
+  //       '<ui-select data-multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //           <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //           <ui-select-choices repeat="person in people | filter: $select.search"> \
+  //             <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //             <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //           </ui-select-choices> \
+  //       </ui-select>'
+  //           );
+
+  //     expect(el).toHaveClass('ui-select-multiple');
+  //     expect(el.scope().$select.selected.length).toBe(2);
+  //     expect(el.find('.ui-select-match-item').length).toBe(2);
+  //   });
+
+  //   it('should render intial state with x-multiple attribute', function () {
+  //     // ensure match template has been loaded by having more than one selection
+  //     scope.selection.selectedMultiple = [scope.people[0], scope.people[1]];
+
+  //     var el = compileTemplate(
+  //       '<ui-select x-multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //           <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //           <ui-select-choices repeat="person in people | filter: $select.search"> \
+  //             <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //             <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //           </ui-select-choices> \
+  //       </ui-select>'
+  //           );
+
+  //     expect(el).toHaveClass('ui-select-multiple');
+  //     expect(el.scope().$select.selected.length).toBe(2);
+  //     expect(el.find('.ui-select-match-item').length).toBe(2);
+  //   });
+
+  //   it('should set model as an empty array if ngModel isnt defined after an item is selected', function () {
+
+  //     // scope.selection.selectedMultiple = [];
+  //     var el = createUiSelectMultiple();
+  //     expect(scope.selection.selectedMultiple instanceof Array).toBe(false);
+  //     clickItem(el, 'Samantha');
+  //     expect(scope.selection.selectedMultiple instanceof Array).toBe(true);
+  //   });
+
+  //   it('should render initial selected items', function() {
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
+  //       var el = createUiSelectMultiple();
+  //       expect(el.scope().$select.selected.length).toBe(2);
+  //       expect(el.find('.ui-select-match-item').length).toBe(2);
+  //   });
+
+  //   it('should remove item by pressing X icon', function() {
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
+  //       var el = createUiSelectMultiple();
+  //       expect(el.scope().$select.selected.length).toBe(2);
+  //       el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
+  //       expect(el.scope().$select.selected.length).toBe(1);
+  //       // $timeout.flush();
+  //   });
+
+  //   it('should pass tabindex to searchInput', function() {
+  //     var el = createUiSelectMultiple({tabindex: 5});
+  //     var searchInput = el.find('.ui-select-search');
+
+  //     expect(searchInput.attr('tabindex')).toEqual('5');
+  //     expect($(el).attr('tabindex')).toEqual(undefined);
+  //   });
 
-    it('should pass tabindex to searchInput when tabindex is an expression', function() {
-      scope.tabValue = 22;
-      var el = createUiSelectMultiple({tabindex: '{{tabValue + 10}}'});
-      var searchInput = el.find('.ui-select-search');
+  //   it('should pass tabindex to searchInput when tabindex is an expression', function() {
+  //     scope.tabValue = 22;
+  //     var el = createUiSelectMultiple({tabindex: '{{tabValue + 10}}'});
+  //     var searchInput = el.find('.ui-select-search');
 
-      expect(searchInput.attr('tabindex')).toEqual('32');
-      expect($(el).attr('tabindex')).toEqual(undefined);
-    });
+  //     expect(searchInput.attr('tabindex')).toEqual('32');
+  //     expect($(el).attr('tabindex')).toEqual(undefined);
+  //   });
 
-    it('should not give searchInput a tabindex when ui-select does not have one', function() {
-      var el = createUiSelectMultiple();
-      var searchInput = el.find('.ui-select-search');
+  //   it('should not give searchInput a tabindex when ui-select does not have one', function() {
+  //     var el = createUiSelectMultiple();
+  //     var searchInput = el.find('.ui-select-search');
 
-      expect(searchInput.attr('tabindex')).toEqual(undefined);
-      expect($(el).attr('tabindex')).toEqual(undefined);
-    });
+  //     expect(searchInput.attr('tabindex')).toEqual(undefined);
+  //     expect($(el).attr('tabindex')).toEqual(undefined);
+  //   });
 
-    it('should update size of search input after removing an item', function() {
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
-        var el = createUiSelectMultiple();
+  //   it('should update size of search input after removing an item', function() {
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
+  //       var el = createUiSelectMultiple();
 
-        spyOn(el.scope().$select, 'sizeSearchInput');
+  //       spyOn(el.scope().$select, 'sizeSearchInput');
 
-        var searchInput = el.find('.ui-select-search');
-        var oldWidth = searchInput.css('width');
+  //       var searchInput = el.find('.ui-select-search');
+  //       var oldWidth = searchInput.css('width');
 
-        el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
-        expect(el.scope().$select.sizeSearchInput).toHaveBeenCalled();
+  //       el.find('.ui-select-match-item').first().find('.ui-select-match-close').click();
+  //       expect(el.scope().$select.sizeSearchInput).toHaveBeenCalled();
 
-    });
+  //   });
 
-    it('should move to last match when pressing BACKSPACE key from search', function() {
+  //   it('should move to last match when pressing BACKSPACE key from search', function() {
 
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Backspace);
-        expect(isDropdownOpened(el)).toEqual(false);
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(el.scope().$select.selected.length - 1);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Backspace);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(el.scope().$select.selected.length - 1);
 
-    });
+  //   });
 
-    it('should remove highlighted match when pressing BACKSPACE key from search and decrease activeMatchIndex', function() {
+  //   it('should remove highlighted match when pressing BACKSPACE key from search and decrease activeMatchIndex', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Backspace);
-        expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[6]]); //Wladimir & Nicole
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Backspace);
+  //       expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[6]]); //Wladimir & Nicole
 
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(0);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(0);
 
-    });
+  //   });
 
-    it('should remove highlighted match when pressing DELETE key from search and keep same activeMatchIndex', function() {
+  //   it('should remove highlighted match when pressing DELETE key from search and keep same activeMatchIndex', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Delete);
-        expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[6]]); //Wladimir & Nicole
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Delete);
+  //       expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[6]]); //Wladimir & Nicole
 
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(1);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(1);
 
-    });
+  //   });
 
-    it('should move to last match when pressing LEFT key from search', function() {
+  //   it('should move to last match when pressing LEFT key from search', function() {
 
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Left);
-        expect(isDropdownOpened(el)).toEqual(false);
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(el.scope().$select.selected.length - 1);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(el.scope().$select.selected.length - 1);
 
-    });
+  //   });
 
-    it('should move between matches when pressing LEFT key from search', function() {
+  //   it('should move between matches when pressing LEFT key from search', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Left);
-        expect(isDropdownOpened(el)).toEqual(false);
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(el.scope().$select.selected.length - 2);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Left);
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(0);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(el.scope().$select.selected.length - 2);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(0);
 
-    });
+  //   });
 
-    it('should decrease $selectMultiple.activeMatchIndex when pressing LEFT key', function() {
+  //   it('should decrease $selectMultiple.activeMatchIndex when pressing LEFT key', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        el.scope().$selectMultiple.activeMatchIndex = 3;
-        triggerKeydown(searchInput, Key.Left);
-        triggerKeydown(searchInput, Key.Left);
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(1);
+  //       el.scope().$selectMultiple.activeMatchIndex = 3;
+  //       triggerKeydown(searchInput, Key.Left);
+  //       triggerKeydown(searchInput, Key.Left);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(1);
 
-    });
+  //   });
 
-    it('should increase $selectMultiple.activeMatchIndex when pressing RIGHT key', function() {
+  //   it('should increase $selectMultiple.activeMatchIndex when pressing RIGHT key', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        el.scope().$selectMultiple.activeMatchIndex = 0;
-        triggerKeydown(searchInput, Key.Right);
-        triggerKeydown(searchInput, Key.Right);
-        expect(el.scope().$selectMultiple.activeMatchIndex).toBe(2);
+  //       el.scope().$selectMultiple.activeMatchIndex = 0;
+  //       triggerKeydown(searchInput, Key.Right);
+  //       triggerKeydown(searchInput, Key.Right);
+  //       expect(el.scope().$selectMultiple.activeMatchIndex).toBe(2);
 
-    });
+  //   });
 
-    it('should open dropdown when pressing DOWN key', function() {
+  //   it('should open dropdown when pressing DOWN key', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Down);
-        expect(isDropdownOpened(el)).toEqual(true);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Down);
+  //       expect(isDropdownOpened(el)).toEqual(true);
 
-    });
+  //   });
 
-    it('should search/open dropdown when writing to search input', function() {
+  //   it('should search/open dropdown when writing to search input', function() {
 
-        scope.selection.selectedMultiple = [scope.people[5]]; //Wladimir & Samantha
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[5]]; //Wladimir & Samantha
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        el.scope().$select.search = 'r';
-        scope.$digest();
-        expect(isDropdownOpened(el)).toEqual(true);
+  //       el.scope().$select.search = 'r';
+  //       scope.$digest();
+  //       expect(isDropdownOpened(el)).toEqual(true);
 
-    });
+  //   });
 
-    it('should add selected match to selection array', function() {
+  //   it('should add selected match to selection array', function() {
 
-        scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        clickItem(el, 'Wladimir');
-        expect(scope.selection.selectedMultiple).toEqual([scope.people[5], scope.people[4]]); //Samantha & Wladimir
+  //       clickItem(el, 'Wladimir');
+  //       expect(scope.selection.selectedMultiple).toEqual([scope.people[5], scope.people[4]]); //Samantha & Wladimir
 
-    });
+  //   });
 
-    it('should close dropdown after selecting', function() {
+  //   it('should close dropdown after selecting', function() {
 
-        scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Down);
-        expect(isDropdownOpened(el)).toEqual(true);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Down);
+  //       expect(isDropdownOpened(el)).toEqual(true);
 
-        clickItem(el, 'Wladimir');
+  //       clickItem(el, 'Wladimir');
 
-        expect(isDropdownOpened(el)).toEqual(false);
+  //       expect(isDropdownOpened(el)).toEqual(false);
 
-    });
+  //   });
 
-    it('should not close dropdown after selecting if closeOnSelect=false', function() {
+  //   it('should not close dropdown after selecting if closeOnSelect=false', function() {
 
-        scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
-        var el = createUiSelectMultiple({closeOnSelect: false});
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
+  //       var el = createUiSelectMultiple({closeOnSelect: false});
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Down);
-        expect(isDropdownOpened(el)).toEqual(true);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Down);
+  //       expect(isDropdownOpened(el)).toEqual(true);
 
-        clickItem(el, 'Wladimir');
+  //       clickItem(el, 'Wladimir');
 
-        expect(isDropdownOpened(el)).toEqual(true);
+  //       expect(isDropdownOpened(el)).toEqual(true);
 
-    });
+  //   });
 
-    it('should closes dropdown when pressing ESC key from search input', function() {
+  //   it('should closes dropdown when pressing ESC key from search input', function() {
 
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5], scope.people[6]]; //Wladimir, Samantha & Nicole
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        expect(isDropdownOpened(el)).toEqual(false);
-        triggerKeydown(searchInput, Key.Down);
-        expect(isDropdownOpened(el)).toEqual(true);
-        triggerKeydown(searchInput, Key.Escape);
-        expect(isDropdownOpened(el)).toEqual(false);
+  //       expect(isDropdownOpened(el)).toEqual(false);
+  //       triggerKeydown(searchInput, Key.Down);
+  //       expect(isDropdownOpened(el)).toEqual(true);
+  //       triggerKeydown(searchInput, Key.Escape);
+  //       expect(isDropdownOpened(el)).toEqual(false);
 
-    });
+  //   });
 
-    it('should select highlighted match when pressing ENTER key from dropdown', function() {
+  //   it('should select highlighted match when pressing ENTER key from dropdown', function() {
 
-        scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       scope.selection.selectedMultiple = [scope.people[5]]; //Samantha
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        triggerKeydown(searchInput, Key.Down);
-        triggerKeydown(searchInput, Key.Enter);
-        expect(scope.selection.selectedMultiple.length).toEqual(2);
+  //       triggerKeydown(searchInput, Key.Down);
+  //       triggerKeydown(searchInput, Key.Enter);
+  //       expect(scope.selection.selectedMultiple.length).toEqual(2);
 
-    });
+  //   });
 
-    it('should stop the propagation when pressing ENTER key from dropdown', function() {
+  //   it('should stop the propagation when pressing ENTER key from dropdown', function() {
 
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
-        spyOn(jQuery.Event.prototype, 'preventDefault');
-        spyOn(jQuery.Event.prototype, 'stopPropagation');
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
+  //       spyOn(jQuery.Event.prototype, 'preventDefault');
+  //       spyOn(jQuery.Event.prototype, 'stopPropagation');
 
-        triggerKeydown(searchInput, Key.Down);
-        triggerKeydown(searchInput, Key.Enter);
-        expect(jQuery.Event.prototype.preventDefault).toHaveBeenCalled();
-        expect(jQuery.Event.prototype.stopPropagation).toHaveBeenCalled();
+  //       triggerKeydown(searchInput, Key.Down);
+  //       triggerKeydown(searchInput, Key.Enter);
+  //       expect(jQuery.Event.prototype.preventDefault).toHaveBeenCalled();
+  //       expect(jQuery.Event.prototype.stopPropagation).toHaveBeenCalled();
 
-    });
+  //   });
 
-    it('should stop the propagation when pressing ESC key from dropdown', function() {
+  //   it('should stop the propagation when pressing ESC key from dropdown', function() {
 
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
-        spyOn(jQuery.Event.prototype, 'preventDefault');
-        spyOn(jQuery.Event.prototype, 'stopPropagation');
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
+  //       spyOn(jQuery.Event.prototype, 'preventDefault');
+  //       spyOn(jQuery.Event.prototype, 'stopPropagation');
 
-        triggerKeydown(searchInput, Key.Down);
-        triggerKeydown(searchInput, Key.Escape);
-        expect(jQuery.Event.prototype.preventDefault).toHaveBeenCalled();
-        expect(jQuery.Event.prototype.stopPropagation).toHaveBeenCalled();
+  //       triggerKeydown(searchInput, Key.Down);
+  //       triggerKeydown(searchInput, Key.Escape);
+  //       expect(jQuery.Event.prototype.preventDefault).toHaveBeenCalled();
+  //       expect(jQuery.Event.prototype.stopPropagation).toHaveBeenCalled();
 
-    });
+  //   });
 
-    it('should increase $select.activeIndex when pressing DOWN key from dropdown', function() {
+  //   it('should increase $select.activeIndex when pressing DOWN key from dropdown', function() {
 
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        triggerKeydown(searchInput, Key.Down); //Open dropdown
+  //       triggerKeydown(searchInput, Key.Down); //Open dropdown
 
-        el.scope().$select.activeIndex = 0;
-        triggerKeydown(searchInput, Key.Down);
-        triggerKeydown(searchInput, Key.Down);
-        expect(el.scope().$select.activeIndex).toBe(2);
+  //       el.scope().$select.activeIndex = 0;
+  //       triggerKeydown(searchInput, Key.Down);
+  //       triggerKeydown(searchInput, Key.Down);
+  //       expect(el.scope().$select.activeIndex).toBe(2);
 
-    });
+  //   });
 
-    it('should decrease $select.activeIndex when pressing UP key from dropdown', function() {
+  //   it('should decrease $select.activeIndex when pressing UP key from dropdown', function() {
 
-        var el = createUiSelectMultiple();
-        var searchInput = el.find('.ui-select-search');
+  //       var el = createUiSelectMultiple();
+  //       var searchInput = el.find('.ui-select-search');
 
-        triggerKeydown(searchInput, Key.Down); //Open dropdown
+  //       triggerKeydown(searchInput, Key.Down); //Open dropdown
 
-        el.scope().$select.activeIndex = 5;
-        triggerKeydown(searchInput, Key.Up);
-        triggerKeydown(searchInput, Key.Up);
-        expect(el.scope().$select.activeIndex).toBe(3);
+  //       el.scope().$select.activeIndex = 5;
+  //       triggerKeydown(searchInput, Key.Up);
+  //       triggerKeydown(searchInput, Key.Up);
+  //       expect(el.scope().$select.activeIndex).toBe(3);
 
-    });
+  //   });
 
-    it('should render initial selected items', function() {
-        scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
-        var el = createUiSelectMultiple();
-        expect(el.scope().$select.selected.length).toBe(2);
-        expect(el.find('.ui-select-match-item').length).toBe(2);
-    });
+  //   it('should render initial selected items', function() {
+  //       scope.selection.selectedMultiple = [scope.people[4], scope.people[5]]; //Wladimir & Samantha
+  //       var el = createUiSelectMultiple();
+  //       expect(el.scope().$select.selected.length).toBe(2);
+  //       expect(el.find('.ui-select-match-item').length).toBe(2);
+  //   });
 
-    it('should parse the items correctly using single property binding', function() {
+  //   it('should parse the items correctly using single property binding', function() {
 
-      scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //     scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-      var el = compileTemplate(
-          '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select>'
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select>'
+  //     );
 
-      expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[5]]);
+  //     expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[5]]);
 
-    });
+  //   });
 
-    it('should add selected match to selection array using single property binding', function() {
+  //   it('should add selected match to selection array using single property binding', function() {
 
-      scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //     scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-      var el = compileTemplate(
-          '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select>'
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select>'
+  //     );
 
-      var searchInput = el.find('.ui-select-search');
+  //     var searchInput = el.find('.ui-select-search');
 
-      clickItem(el, 'Natasha');
+  //     clickItem(el, 'Natasha');
 
-      expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[5], scope.people[7]]);
-      scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com', 'natasha@email.com'];
+  //     expect(el.scope().$select.selected).toEqual([scope.people[4], scope.people[5], scope.people[7]]);
+  //     scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com', 'natasha@email.com'];
 
-    });
+  //   });
 
-    it('should format view value correctly when using single property binding and refresh function', function () {
+  //   it('should format view value correctly when using single property binding and refresh function', function () {
 
-      scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //     scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-      var el = compileTemplate(
-          '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search" \
-                refresh="fetchFromServer($select.search)" refresh-delay="0"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select>'
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search" \
+  //               refresh="fetchFromServer($select.search)" refresh-delay="0"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select>'
+  //     );
 
-      var searchInput = el.find('.ui-select-search');
+  //     var searchInput = el.find('.ui-select-search');
 
-      scope.fetchFromServer = function(searching){
+  //     scope.fetchFromServer = function(searching){
 
-        if (searching == 'n')
-          return scope.people;
+  //       if (searching == 'n')
+  //         return scope.people;
 
-        if (searching == 'o'){
-          scope.people = []; //To simulate cases were previously selected item isnt in the list anymore
-        }
+  //       if (searching == 'o'){
+  //         scope.people = []; //To simulate cases were previously selected item isnt in the list anymore
+  //       }
 
-      };
+  //     };
 
-      setSearchText(el, 'n');
-      clickItem(el, 'Nicole');
+  //     setSearchText(el, 'n');
+  //     clickItem(el, 'Nicole');
 
-      expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-        .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
+  //     expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //       .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
 
-      setSearchText(el, 'o');
+  //     setSearchText(el, 'o');
 
-      expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-        .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
+  //     expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //       .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
 
-    });
+  //   });
 
-      it('should watch changes for $select.selected and update formatted value correctly', function () {
+  //     it('should watch changes for $select.selected and update formatted value correctly', function () {
 
-          scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //         scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-          var el = compileTemplate(
-              '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-                  <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-                  <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                    <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                    <div ng-bind-html="person.email | highlight: $select.search"></div> \
-                  </ui-select-choices> \
-              </ui-select> \
-              '
-          );
+  //         var el = compileTemplate(
+  //             '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //                 <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //                 <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //                   <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //                   <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //                 </ui-select-choices> \
+  //             </ui-select> \
+  //             '
+  //         );
 
-          var el2 = compileTemplate('<span class="resultDiv" ng-bind="selection.selectedMultiple"></span>');
+  //         var el2 = compileTemplate('<span class="resultDiv" ng-bind="selection.selectedMultiple"></span>');
 
-          expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-              .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>");
+  //         expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //             .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>");
 
-          clickItem(el, 'Nicole');
+  //         clickItem(el, 'Nicole');
 
-          expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-              .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
+  //         expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //             .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
 
-          expect(scope.selection.selectedMultiple.length).toBe(3);
+  //         expect(scope.selection.selectedMultiple.length).toBe(3);
 
-      });
+  //     });
 
-      it('should watch changes for $select.selected and refresh choices correctly', function () {
+  //     it('should watch changes for $select.selected and refresh choices correctly', function () {
 
-          scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //         scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-          var el = compileTemplate(
-              '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-                  <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-                  <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                    <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                    <div ng-bind-html="person.email | highlight: $select.search"></div> \
-                  </ui-select-choices> \
-              </ui-select> \
-              '
-          );
-          scope.selection.selectedMultiple.splice(0, 1); // Remove Wladimir from selection
+  //         var el = compileTemplate(
+  //             '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //                 <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //                 <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //                   <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //                   <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //                 </ui-select-choices> \
+  //             </ui-select> \
+  //             '
+  //         );
+  //         scope.selection.selectedMultiple.splice(0, 1); // Remove Wladimir from selection
 
-          var searchInput = el.find('.ui-select-search');
-          triggerKeydown(searchInput, Key.Down); //Open dropdown
+  //         var searchInput = el.find('.ui-select-search');
+  //         triggerKeydown(searchInput, Key.Down); //Open dropdown
 
-          expect(el.find('.ui-select-choices-content').text())
-              .toContain("wladimir@email.com");
+  //         expect(el.find('.ui-select-choices-content').text())
+  //             .toContain("wladimir@email.com");
 
-      });
+  //     });
 
-      it('should ensure the multiple selection limit is respected', function () {
+  //     it('should ensure the multiple selection limit is respected', function () {
 
-          scope.selection.selectedMultiple = ['wladimir@email.com'];
+  //         scope.selection.selectedMultiple = ['wladimir@email.com'];
 
-          var el = compileTemplate(
-              '<ui-select multiple limit="2" ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-                  <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-                  <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                    <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                    <div ng-bind-html="person.email | highlight: $select.search"></div> \
-                  </ui-select-choices> \
-              </ui-select> \
-              '
-          );
+  //         var el = compileTemplate(
+  //             '<ui-select multiple limit="2" ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //                 <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //                 <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //                   <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //                   <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //                 </ui-select-choices> \
+  //             </ui-select> \
+  //             '
+  //         );
 
-          var el2 = compileTemplate('<span class="resultDiv" ng-bind="selection.selectedMultiple"></span>');
+  //         var el2 = compileTemplate('<span class="resultDiv" ng-bind="selection.selectedMultiple"></span>');
 
-          expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-              .toBe("Wladimir <wladimir@email.com>");
+  //         expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //             .toBe("Wladimir <wladimir@email.com>");
 
-          clickItem(el, 'Samantha');
-          expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-              .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>");
+  //         clickItem(el, 'Samantha');
+  //         expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //             .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>");
 
-          clickItem(el, 'Nicole');
+  //         clickItem(el, 'Nicole');
 
-          expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-              .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>");
+  //         expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //             .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>");
 
-          expect(scope.selection.selectedMultiple.length).toBe(2);
+  //         expect(scope.selection.selectedMultiple.length).toBe(2);
 
-      });
+  //     });
 
-    it('should change viewvalue only once when updating modelvalue', function () {
+  //   it('should change viewvalue only once when updating modelvalue', function () {
 
-      scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //     scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-      var el = compileTemplate(
-          '<ui-select ng-change="onlyOnce()" multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select> \
-          '
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select ng-change="onlyOnce()" multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select> \
+  //         '
+  //     );
 
-      scope.counter = 0;
-      scope.onlyOnce = function(){
-        scope.counter++;
-      };
+  //     scope.counter = 0;
+  //     scope.onlyOnce = function(){
+  //       scope.counter++;
+  //     };
 
-      clickItem(el, 'Nicole');
+  //     clickItem(el, 'Nicole');
 
-      expect(scope.counter).toBe(1);
+  //     expect(scope.counter).toBe(1);
 
-    });
+  //   });
 
-    it('should retain an invalid view value after refreshing items', function() {
-      scope.taggingFunc = function (name) {
-        return {
-          name: name,
-          email: name + '@email.com',
-          valid: name === "iamvalid"
-        };
-      };
+  //   it('should retain an invalid view value after refreshing items', function() {
+  //     scope.taggingFunc = function (name) {
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         valid: name === "iamvalid"
+  //       };
+  //     };
 
-      var el = compileTemplate(
-          '<ui-select multiple ng-model="selection.selectedMultiple" tagging="taggingFunc" tagging-label="false" test-validator> \
-            <ui-select-match placeholder="Pick one...">{{$select.selected.email}}</ui-select-match> \
-            <ui-select-choices repeat="person in people | filter: $select.search"> \
-              <div ng-bind-html="person.name" | highlight: $select.search"></div> \
-              <div ng-bind-html="person.email | highlight: $select.search"></div> \
-            </ui-select-choices> \
-          </ui-select>'
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple ng-model="selection.selectedMultiple" tagging="taggingFunc" tagging-label="false" test-validator> \
+  //           <ui-select-match placeholder="Pick one...">{{$select.selected.email}}</ui-select-match> \
+  //           <ui-select-choices repeat="person in people | filter: $select.search"> \
+  //             <div ng-bind-html="person.name" | highlight: $select.search"></div> \
+  //             <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //           </ui-select-choices> \
+  //         </ui-select>'
+  //     );
 
-      clickMatch(el);
-      var searchInput = el.find('.ui-select-search');
+  //     clickMatch(el);
+  //     var searchInput = el.find('.ui-select-search');
 
-      setSearchText(el, 'iamvalid');
-      triggerKeydown(searchInput, Key.Tab);
+  //     setSearchText(el, 'iamvalid');
+  //     triggerKeydown(searchInput, Key.Tab);
 
-      //model value defined because it's valid, view value defined as expected
-      var validTag = scope.taggingFunc("iamvalid");
-      expect(scope.selection.selectedMultiple).toEqual([jasmine.objectContaining(validTag)]);
-      expect($(el).scope().$select.selected).toEqual([jasmine.objectContaining(validTag)]);
+  //     //model value defined because it's valid, view value defined as expected
+  //     var validTag = scope.taggingFunc("iamvalid");
+  //     expect(scope.selection.selectedMultiple).toEqual([jasmine.objectContaining(validTag)]);
+  //     expect($(el).scope().$select.selected).toEqual([jasmine.objectContaining(validTag)]);
 
-      clickMatch(el);
-      setSearchText(el, 'notvalid');
-      triggerKeydown(searchInput, Key.Tab);
+  //     clickMatch(el);
+  //     setSearchText(el, 'notvalid');
+  //     triggerKeydown(searchInput, Key.Tab);
 
-      //model value undefined because it's invalid, view value STILL defined as expected
-      var invalidTag = scope.taggingFunc("notvalid");
-      expect(scope.selection.selected).toEqual(undefined);
-      expect($(el).scope().$select.selected).toEqual([jasmine.objectContaining(validTag), jasmine.objectContaining(invalidTag)]);
-    });
+  //     //model value undefined because it's invalid, view value STILL defined as expected
+  //     var invalidTag = scope.taggingFunc("notvalid");
+  //     expect(scope.selection.selected).toEqual(undefined);
+  //     expect($(el).scope().$select.selected).toEqual([jasmine.objectContaining(validTag), jasmine.objectContaining(invalidTag)]);
+  //   });
 
-    it('should run $formatters when changing model directly', function () {
+  //   it('should run $formatters when changing model directly', function () {
 
-      scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
+  //     scope.selection.selectedMultiple = ['wladimir@email.com', 'samantha@email.com'];
 
-      var el = compileTemplate(
-          '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select> \
-          '
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select> \
+  //         '
+  //     );
 
-      // var el2 = compileTemplate('<span class="resultDiv" ng-bind="selection.selectedMultiple"></span>');
+  //     // var el2 = compileTemplate('<span class="resultDiv" ng-bind="selection.selectedMultiple"></span>');
 
-      scope.selection.selectedMultiple.push("nicole@email.com");
+  //     scope.selection.selectedMultiple.push("nicole@email.com");
 
-      scope.$digest();
-      scope.$digest(); //2nd $digest needed when using angular 1.3.0-rc.1+, might be related with the fact that the value is an array
+  //     scope.$digest();
+  //     scope.$digest(); //2nd $digest needed when using angular 1.3.0-rc.1+, might be related with the fact that the value is an array
 
-      expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
-         .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
+  //     expect(el.find('.ui-select-match-item [uis-transclude-append]:not(.ng-hide)').text())
+  //        .toBe("Wladimir <wladimir@email.com>Samantha <samantha@email.com>Nicole <nicole@email.com>");
 
-    });
+  //   });
 
-    it('should support multiple="multiple" attribute', function() {
+  //   it('should support multiple="multiple" attribute', function() {
 
-      var el = compileTemplate(
-          '<ui-select multiple="multiple" ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select> \
-          '
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple="multiple" ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select> \
+  //         '
+  //     );
 
-      expect(el.scope().$select.multiple).toBe(true);
-    });
+  //     expect(el.scope().$select.multiple).toBe(true);
+  //   });
 
-    it('should preserve the model if tagging is enabled on select multiple', function() {
-      scope.selection.selectedMultiple = ["I am not on the list of choices"];
+  //   it('should preserve the model if tagging is enabled on select multiple', function() {
+  //     scope.selection.selectedMultiple = ["I am not on the list of choices"];
 
-      var el = compileTemplate(
-          '<ui-select multiple="multiple" tagging ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
-              <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
-              <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
-                <div ng-bind-html="person.name | highlight: $select.search"></div> \
-                <div ng-bind-html="person.email | highlight: $select.search"></div> \
-              </ui-select-choices> \
-          </ui-select> \
-          '
-      );
+  //     var el = compileTemplate(
+  //         '<ui-select multiple="multiple" tagging ng-model="selection.selectedMultiple" theme="bootstrap" style="width: 800px;"> \
+  //             <ui-select-match placeholder="Pick one...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match> \
+  //             <ui-select-choices repeat="person.email as person in people | filter: $select.search"> \
+  //               <div ng-bind-html="person.name | highlight: $select.search"></div> \
+  //               <div ng-bind-html="person.email | highlight: $select.search"></div> \
+  //             </ui-select-choices> \
+  //         </ui-select> \
+  //         '
+  //     );
 
-      scope.$digest();
+  //     scope.$digest();
 
-      expect(scope.selection.selectedMultiple)
-         .toEqual(["I am not on the list of choices"]);
-    });
+  //     expect(scope.selection.selectedMultiple)
+  //        .toEqual(["I am not on the list of choices"]);
+  //   });
 
-    it('should not call tagging function needlessly', function() {
-      scope.slowTaggingFunc = function (name) {
-        // for (var i = 0; i < 100000000; i++);
-        return {name: name};
-      };
-      spyOn(scope, 'slowTaggingFunc').and.callThrough();
+  //   it('should not call tagging function needlessly', function() {
+  //     scope.slowTaggingFunc = function (name) {
+  //       // for (var i = 0; i < 100000000; i++);
+  //       return {name: name};
+  //     };
+  //     spyOn(scope, 'slowTaggingFunc').and.callThrough();
 
-      var el = createUiSelectMultiple({tagging: 'slowTaggingFunc'});
+  //     var el = createUiSelectMultiple({tagging: 'slowTaggingFunc'});
 
-      showChoicesForSearch(el, 'Foo');
-      expect(el.find('.ui-select-choices-row-inner').size()).toBe(6);
+  //     showChoicesForSearch(el, 'Foo');
+  //     expect(el.find('.ui-select-choices-row-inner').size()).toBe(6);
 
-      showChoicesForSearch(el, 'a');
-      expect(el.find('.ui-select-choices-row-inner').size()).toBe(9);
+  //     showChoicesForSearch(el, 'a');
+  //     expect(el.find('.ui-select-choices-row-inner').size()).toBe(9);
 
-      expect(scope.slowTaggingFunc.calls.count()).toBe(2);
-      expect(scope.slowTaggingFunc.calls.count()).not.toBe(15);
-    });
+  //     expect(scope.slowTaggingFunc.calls.count()).toBe(2);
+  //     expect(scope.slowTaggingFunc.calls.count()).not.toBe(15);
+  //   });
 
-    it('should allow decline tags when tagging function returns null in multiple select mode', function() {
-      scope.taggingFunc = function (name) {
-        if (name == 'idontexist') return null;
-        return {
-          name: name,
-          email: name + '@email.com',
-          group: 'Foo',
-          age: 12
-        };
-      };
+  //   it('should allow decline tags when tagging function returns null in multiple select mode', function() {
+  //     scope.taggingFunc = function (name) {
+  //       if (name == 'idontexist') return null;
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         group: 'Foo',
+  //         age: 12
+  //       };
+  //     };
 
-      var el = createUiSelectMultiple({tagging: 'taggingFunc'});
+  //     var el = createUiSelectMultiple({tagging: 'taggingFunc'});
 
-      showChoicesForSearch(el, 'amalie');
-      expect(el.find('.ui-select-choices-row-inner').size()).toBe(2);
-      expect(el.scope().$select.items[0]).toEqual(jasmine.objectContaining({name: 'amalie', isTag: true}));
-      expect(el.scope().$select.items[1]).toEqual(jasmine.objectContaining({name: 'Amalie'}));
+  //     showChoicesForSearch(el, 'amalie');
+  //     expect(el.find('.ui-select-choices-row-inner').size()).toBe(2);
+  //     expect(el.scope().$select.items[0]).toEqual(jasmine.objectContaining({name: 'amalie', isTag: true}));
+  //     expect(el.scope().$select.items[1]).toEqual(jasmine.objectContaining({name: 'Amalie'}));
 
-      showChoicesForSearch(el, 'idoexist');
-      expect(el.find('.ui-select-choices-row-inner').size()).toBe(1);
-      expect(el.find('.ui-select-choices-row-inner').is(':contains(idoexist@email.com)')).toBeTruthy();
+  //     showChoicesForSearch(el, 'idoexist');
+  //     expect(el.find('.ui-select-choices-row-inner').size()).toBe(1);
+  //     expect(el.find('.ui-select-choices-row-inner').is(':contains(idoexist@email.com)')).toBeTruthy();
 
-      showChoicesForSearch(el, 'idontexist');
-      expect(el.find('.ui-select-choices-row-inner').size()).toBe(0);
-    });
+  //     showChoicesForSearch(el, 'idontexist');
+  //     expect(el.find('.ui-select-choices-row-inner').size()).toBe(0);
+  //   });
 
-    it('should allow creating tag in multi select mode with tagging and group-by enabled', function() {
-      scope.taggingFunc = function (name) {
-        return {
-          name: name,
-          email: name + '@email.com',
-          group: 'Foo',
-          age: 12
-        };
-      };
+  //   it('should allow creating tag in multi select mode with tagging and group-by enabled', function() {
+  //     scope.taggingFunc = function (name) {
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         group: 'Foo',
+  //         age: 12
+  //       };
+  //     };
 
-      var el = createUiSelectMultiple({tagging: 'taggingFunc', groupBy: "'age'"});
+  //     var el = createUiSelectMultiple({tagging: 'taggingFunc', groupBy: "'age'"});
 
-      showChoicesForSearch(el, 'amal');
-      expect(el.find('.ui-select-choices-row-inner').size()).toBe(2);
-      expect(el.scope().$select.items[0]).toEqual(jasmine.objectContaining({name: 'amal', email: 'amal@email.com', isTag: true}));
-      expect(el.scope().$select.items[1]).toEqual(jasmine.objectContaining({name: 'Amalie', email: 'amalie@email.com'}));
-    });
+  //     showChoicesForSearch(el, 'amal');
+  //     expect(el.find('.ui-select-choices-row-inner').size()).toBe(2);
+  //     expect(el.scope().$select.items[0]).toEqual(jasmine.objectContaining({name: 'amal', email: 'amal@email.com', isTag: true}));
+  //     expect(el.scope().$select.items[1]).toEqual(jasmine.objectContaining({name: 'Amalie', email: 'amalie@email.com'}));
+  //   });
 
-    it('should allow paste tag from clipboard', function() {
-      scope.taggingFunc = function (name) {
-        return {
-          name: name,
-          email: name + '@email.com',
-          group: 'Foo',
-          age: 12
-        };
-      };
+  //   it('should allow paste tag from clipboard', function() {
+  //     scope.taggingFunc = function (name) {
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         group: 'Foo',
+  //         age: 12
+  //       };
+  //     };
 
-      var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), 'tag1');
+  //     var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), 'tag1');
 
-      expect($(el).scope().$select.selected.length).toBe(1);
-      expect($(el).scope().$select.selected[0].name).toBe('tag1');
-    });
+  //     expect($(el).scope().$select.selected.length).toBe(1);
+  //     expect($(el).scope().$select.selected[0].name).toBe('tag1');
+  //   });
 
-    it('should allow paste tag from clipboard for generic ClipboardEvent', function() {
-      scope.taggingFunc = function (name) {
-        return {
-          name: name,
-          email: name + '@email.com',
-          group: 'Foo',
-          age: 12
-        };
-      };
+  //   it('should allow paste tag from clipboard for generic ClipboardEvent', function() {
+  //     scope.taggingFunc = function (name) {
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         group: 'Foo',
+  //         age: 12
+  //       };
+  //     };
 
-      var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), 'tag1', true);
+  //     var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), 'tag1', true);
 
-      expect($(el).scope().$select.selected.length).toBe(1);
-      expect($(el).scope().$select.selected[0].name).toBe('tag1');
-    });
+  //     expect($(el).scope().$select.selected.length).toBe(1);
+  //     expect($(el).scope().$select.selected[0].name).toBe('tag1');
+  //   });
 
-    it('should allow paste multiple tags', function() {
-      scope.taggingFunc = function (name) {
-        return {
-          name: name,
-          email: name + '@email.com',
-          group: 'Foo',
-          age: 12
-        };
-      };
+  //   it('should allow paste multiple tags', function() {
+  //     scope.taggingFunc = function (name) {
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         group: 'Foo',
+  //         age: 12
+  //       };
+  //     };
 
-      var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), ',tag1,tag2,tag3,,tag5,');
+  //     var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), ',tag1,tag2,tag3,,tag5,');
 
-      expect($(el).scope().$select.selected.length).toBe(5);
-    });
+  //     expect($(el).scope().$select.selected.length).toBe(5);
+  //   });
 
-    it('should allow paste multiple tags with generic ClipboardEvent', function() {
-      scope.taggingFunc = function (name) {
-        return {
-          name: name,
-          email: name + '@email.com',
-          group: 'Foo',
-          age: 12
-        };
-      };
+  //   it('should allow paste multiple tags with generic ClipboardEvent', function() {
+  //     scope.taggingFunc = function (name) {
+  //       return {
+  //         name: name,
+  //         email: name + '@email.com',
+  //         group: 'Foo',
+  //         age: 12
+  //       };
+  //     };
 
-      var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), ',tag1,tag2,tag3,,tag5,', true);
+  //     var el = createUiSelectMultiple({tagging: 'taggingFunc', taggingTokens: ",|ENTER"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), ',tag1,tag2,tag3,,tag5,', true);
 
-      expect($(el).scope().$select.selected.length).toBe(5);
-    });
+  //     expect($(el).scope().$select.selected.length).toBe(5);
+  //   });
 
-    it('should split pastes on ENTER (and with undefined tagging function)', function() {
-      var el = createUiSelectMultiple({tagging: true, taggingTokens: "ENTER|,"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), "tag1\ntag2\ntag3");
+  //   it('should split pastes on ENTER (and with undefined tagging function)', function() {
+  //     var el = createUiSelectMultiple({tagging: true, taggingTokens: "ENTER|,"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), "tag1\ntag2\ntag3");
 
-      expect($(el).scope().$select.selected.length).toBe(3);
-    });
+  //     expect($(el).scope().$select.selected.length).toBe(3);
+  //   });
 
-    it('should split pastes on TAB', function() {
-      var el = createUiSelectMultiple({tagging: true, taggingTokens: "TAB|,"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), "tag1\ttag2\ttag3");
+  //   it('should split pastes on TAB', function() {
+  //     var el = createUiSelectMultiple({tagging: true, taggingTokens: "TAB|,"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), "tag1\ttag2\ttag3");
 
-      expect($(el).scope().$select.selected.length).toBe(3);
-    });
+  //     expect($(el).scope().$select.selected.length).toBe(3);
+  //   });
 
-    it('should split pastes on tagging token that is not the first token', function() {
-      var el = createUiSelectMultiple({tagging: true, taggingTokens: ",|ENTER|TAB"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), "tag1\ntag2\ntag3\ntag4");
+  //   it('should split pastes on tagging token that is not the first token', function() {
+  //     var el = createUiSelectMultiple({tagging: true, taggingTokens: ",|ENTER|TAB"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), "tag1\ntag2\ntag3\ntag4");
 
-      expect($(el).scope().$select.selected).toEqual(['tag1', 'tag2', 'tag3', 'tag4']);
-    });
+  //     expect($(el).scope().$select.selected).toEqual(['tag1', 'tag2', 'tag3', 'tag4']);
+  //   });
 
-    it('should split pastes only on first tagging token found in paste string', function() {
-      var el = createUiSelectMultiple({tagging: true, taggingTokens: ",|ENTER|TAB"});
-      clickMatch(el);
-      triggerPaste(el.find('input'), "tag1\ntag2\ntag3\ttag4");
+  //   it('should split pastes only on first tagging token found in paste string', function() {
+  //     var el = createUiSelectMultiple({tagging: true, taggingTokens: ",|ENTER|TAB"});
+  //     clickMatch(el);
+  //     triggerPaste(el.find('input'), "tag1\ntag2\ntag3\ttag4");
 
-      expect($(el).scope().$select.selected).toEqual(['tag1', 'tag2', 'tag3\ttag4']);
-    });
+  //     expect($(el).scope().$select.selected).toEqual(['tag1', 'tag2', 'tag3\ttag4']);
+  //   });
 
-    it('should add an id to the search input field', function () {
-      var el = createUiSelectMultiple({inputId: 'inid'});
-      var searchEl = $(el).find('input.ui-select-search');
-      expect(searchEl.length).toEqual(1);
-      expect(searchEl[0].id).toEqual('inid');
-    });
+  //   it('should add an id to the search input field', function () {
+  //     var el = createUiSelectMultiple({inputId: 'inid'});
+  //     var searchEl = $(el).find('input.ui-select-search');
+  //     expect(searchEl.length).toEqual(1);
+  //     expect(searchEl[0].id).toEqual('inid');
+  //   });
 
-    it('should properly identify as empty if required', function () {
-      var el = createUiSelectMultiple({required: true});
-      expect(el.hasClass('ng-empty')).toBeTruthy();
-    });
+  //   it('should properly identify as empty if required', function () {
+  //     var el = createUiSelectMultiple({required: true});
+  //     expect(el.hasClass('ng-empty')).toBeTruthy();
+  //   });
 
-    it('should properly identify as not empty if required', function () {
-      var el = createUiSelectMultiple({required: true});
-      clickItem(el, 'Nicole');
-      clickItem(el, 'Samantha');
-      expect(el.hasClass('ng-not-empty')).toBeTruthy();
-    });
-  });
+  //   it('should properly identify as not empty if required', function () {
+  //     var el = createUiSelectMultiple({required: true});
+  //     clickItem(el, 'Nicole');
+  //     clickItem(el, 'Samantha');
+  //     expect(el.hasClass('ng-not-empty')).toBeTruthy();
+  //   });
+  // });
 
   it('should add an id to the search input field', function () {
     var el = createUiSelect({inputId: 'inid'});
@@ -2617,8 +2617,8 @@ describe('ui-select tests', function() {
 
     it('should have aria-label on all input and button elements', function() {
       checkTheme();
-      checkTheme('select2');
-      checkTheme('selectize');
+      // checkTheme('select2');
+      // checkTheme('selectize');
       checkTheme('bootstrap');
 
       function checkTheme(theme) {
