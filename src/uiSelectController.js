@@ -107,7 +107,7 @@ uis.controller('uiSelectCtrl',
     }
 
   // When the user clicks on ui-select, displays the dropdown list
-  ctrl.activate = function(initSearchValue, avoidReset) {
+  ctrl.activate = function(initSearchValue, avoidReset, event) {
     if (!ctrl.disabled  && !ctrl.open) {
       if(!avoidReset) _resetSearchInput();
 
@@ -149,7 +149,13 @@ uis.controller('uiSelectCtrl',
         }
       } else {
         $timeout(function () {
-          ctrl.focusSearchInput(initSearchValue);
+          // 'uis:focusSearch' is a wiwo custom event.
+          var eventResult = $scope.$emit('uis:focusSearch', event);
+          if (!eventResult.defaultPrevented){
+            // Focus on input if not prevented
+            ctrl.focusSearchInput(initSearchValue);
+          }
+
           if(!ctrl.tagging.isActivated && ctrl.items.length > 1) {
             _ensureHighlightVisible();
           }
@@ -448,44 +454,44 @@ uis.controller('uiSelectCtrl',
       return isLocked;
   };
 
-  var sizeWatch = null;
-  var updaterScheduled = false;
-  ctrl.sizeSearchInput = function() {
+  // var sizeWatch = null;
+  // var updaterScheduled = false;
+  // ctrl.sizeSearchInput = function() {
 
-    var input = ctrl.searchInput[0],
-        container = ctrl.searchInput.parent().parent()[0],
-        calculateContainerWidth = function() {
-          // Return the container width only if the search input is visible
-          return container.clientWidth * !!input.offsetParent;
-        },
-        updateIfVisible = function(containerWidth) {
-          if (containerWidth === 0) {
-            return false;
-          }
-          var inputWidth = containerWidth - input.offsetLeft - 10;
-          if (inputWidth < 50) inputWidth = containerWidth;
-          ctrl.searchInput.css('width', inputWidth+'px');
-          return true;
-        };
+  //   var input = ctrl.searchInput[0],
+  //       container = ctrl.searchInput.parent().parent()[0],
+  //       calculateContainerWidth = function() {
+  //         // Return the container width only if the search input is visible
+  //         return container.clientWidth * !!input.offsetParent;
+  //       },
+  //       updateIfVisible = function(containerWidth) {
+  //         if (containerWidth === 0) {
+  //           return false;
+  //         }
+  //         var inputWidth = containerWidth - input.offsetLeft - 10;
+  //         if (inputWidth < 50) inputWidth = containerWidth;
+  //         ctrl.searchInput.css('width', inputWidth+'px');
+  //         return true;
+  //       };
 
-    ctrl.searchInput.css('width', '10px');
-    $timeout(function() { //Give tags time to render correctly
-      if (sizeWatch === null && !updateIfVisible(calculateContainerWidth())) {
-        sizeWatch = $scope.$watch(angular.noop, function() {
-          if (!updaterScheduled) {
-            updaterScheduled = true;
-            $scope.$$postDigest(function() {
-              updaterScheduled = false;
-              if (updateIfVisible(calculateContainerWidth())) {
-                sizeWatch();
-                sizeWatch = null;
-              }
-            });
-          }
-        });
-      }
-    });
-  };
+  //   ctrl.searchInput.css('width', '10px');
+  //   $timeout(function() { //Give tags time to render correctly
+  //     if (sizeWatch === null && !updateIfVisible(calculateContainerWidth())) {
+  //       sizeWatch = $scope.$watch(angular.noop, function() {
+  //         if (!updaterScheduled) {
+  //           updaterScheduled = true;
+  //           $scope.$$postDigest(function() {
+  //             updaterScheduled = false;
+  //             if (updateIfVisible(calculateContainerWidth())) {
+  //               sizeWatch();
+  //               sizeWatch = null;
+  //             }
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
 
   function _handleDropDownSelection(key) {
     var processed = true;
@@ -652,14 +658,14 @@ uis.controller('uiSelectCtrl',
     }
   }
 
-  var onResize = $$uisDebounce(function() {
-    ctrl.sizeSearchInput();
-  }, 50);
+  // var onResize = $$uisDebounce(function() {
+  //   ctrl.sizeSearchInput();
+  // }, 50);
 
-  angular.element($window).bind('resize', onResize);
+  // angular.element($window).bind('resize', onResize);
 
   $scope.$on('$destroy', function() {
     ctrl.searchInput.off('keyup keydown tagged blur paste');
-    angular.element($window).off('resize', onResize);
+    // angular.element($window).off('resize', onResize);
   });
 }]);
